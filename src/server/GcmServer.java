@@ -386,8 +386,6 @@ public class GcmServer {
 		mXmppConnection.addPacketListener(new PacketListener() {
 			@Override
 			public void processPacket(Packet packet) {
-				System.out.println("Received: " + packet.toXML());
-
 				Message incomingMessage = (Message) packet;
 				GcmPacketExtension gcmPacket
 				= (GcmPacketExtension) incomingMessage.getExtension(GCM_NAMESPACE);
@@ -410,7 +408,7 @@ public class GcmServer {
 		mXmppConnection.addPacketInterceptor(new PacketInterceptor() {
 			@Override
 			public void interceptPacket(Packet packet) {
-				System.out.println("Sent: " + packet.toXML());
+				//System.out.println("Sent: " + packet.toXML());
 				//mLogger.log(Level.INFO, "Sent: {0}", packet.toXML());
 			}
 		}, new PacketTypeFilter(Message.class));
@@ -425,16 +423,19 @@ public class GcmServer {
 
 		if (messageType == null) {
 			XmppMessage msg = getMessage(jsonMap);
+			System.out.println("\nReceived From: " + msg.getFrom());
 			// Normal upstream data message
 			try {
 				handleIncomingDataMessage(msg);
 				// Send ACK to CCS
 				String ack = createJsonAck(msg.getFrom(), msg.getMessageId());
+				System.out.println("OK!");
 				send(ack);
 			}
 			catch (Exception e) {
 				// Send NACK to CCS
 				String nack = createJsonNack(msg.getFrom(), msg.getMessageId());
+				System.out.println("ERROR!");
 				send(nack);
 			}
 		} else if ("ack".equals(messageType.toString()))
