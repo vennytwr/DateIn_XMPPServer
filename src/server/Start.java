@@ -35,7 +35,7 @@ public class Start {
 			System.out.println("Connecting to GCM..");
 			xmppServer.connect();
 		} catch (XMPPException | SmackException | IOException e) {
-			System.out.println("ERROR: e");
+			System.out.println("ERROR: " + e);
 		}
 
 //		// Space between information and input

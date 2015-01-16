@@ -1,13 +1,24 @@
 package payload;
 
 public interface Constants {
+	
+	// Google cloud messaging related.
+	String REGISTRATION_ID = "REGISTRATION_ID";
+	String ACTION = "ACTION";
 
 	// Receive.
 	String PACKAGE = "com.datein.date_in.gcm";
+	String ACTION_LOGIN = PACKAGE + ".LOGIN";
 	String ACTION_REGISTER = PACKAGE + ".REGISTER";
+	String ACTION_SEARCH = PACKAGE + ".SEARCH";
 
 	// Send.
+	String ACTION_LOGIN_OK = PACKAGE + ".LOGIN_OK";
+	String ACTION_LOGIN_FAIL = PACKAGE + ".LOGIN_FAIL";
 	String ACTION_REGISTER_OK = PACKAGE + ".REGISTER_OK";
 	String ACTION_REGISTER_EMAIL_TAKEN = PACKAGE + ".REGISTER_EMAIL_TAKEN";
+	String ACTION_REGISTER_DISPLAY_NAME_TAKEN = PACKAGE + ".REGISTER_DISPLAY_NAME_TAKEN";
+	String ACTION_SEARCH_OK = PACKAGE + ".SEARCH_OK";
+	String ACTION_SEARCH_FAIL = PACKAGE + ".SEARCH_FAIL";
 
 }

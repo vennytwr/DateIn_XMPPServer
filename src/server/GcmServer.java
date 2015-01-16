@@ -29,6 +29,7 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 import org.xmlpull.v1.XmlPullParser;
 
+import payload.Constants;
 import payload.PayloadProcessor;
 import payload.ProcessorFactory;
 
@@ -205,8 +206,8 @@ public class GcmServer {
 	 * Handles an upstream data message from a device application.
 	 */
 	public void handleIncomingDataMessage(XmppMessage msg) {
-		if (msg.getPayload().get("action") != null) {
-			PayloadProcessor processor = ProcessorFactory.getProcessor(msg.getPayload().get("action"));
+		if (msg.getPayload().get(Constants.ACTION) != null) {
+			PayloadProcessor processor = ProcessorFactory.getProcessor(msg.getPayload().get(Constants.ACTION));
 			processor.handleMessage(msg);
 		}   
 	}
@@ -429,13 +430,13 @@ public class GcmServer {
 				handleIncomingDataMessage(msg);
 				// Send ACK to CCS
 				String ack = createJsonAck(msg.getFrom(), msg.getMessageId());
-				System.out.println("OK!");
+				//System.out.println("ACK!");
 				send(ack);
 			}
 			catch (Exception e) {
 				// Send NACK to CCS
 				String nack = createJsonNack(msg.getFrom(), msg.getMessageId());
-				System.out.println("ERROR!");
+				//System.out.println("NACK!");
 				send(nack);
 			}
 		} else if ("ack".equals(messageType.toString()))
