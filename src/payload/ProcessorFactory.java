@@ -6,22 +6,32 @@ public class ProcessorFactory {
 		if (action == null)
 			throw new IllegalStateException("Action must not be null");
 
-		if(action.equals(Constants.ACTION_LOGIN)) {
-			System.out.print("Logging in account..");
+		if (action.equals(Constants.ACTION_LOGIN)) {
+			System.out.print("Handling login packet..");
 			return new LoginProcessor();
 		}
 
 		if (action.equals(Constants.ACTION_REGISTER)) {
-			System.out.print("Registering a new account..");
+			System.out.print("Handling register packet..");
 			return new RegisterProcessor();
 		}
 
-		if(action.equals(Constants.ACTION_SEARCH)) {
-			System.out.print("Searching..");
+		if (action.equals(Constants.ACTION_SEARCH)) {
+			System.out.print("Handling search packet..");
 			return new SearchProcessor();
 		}
 
-			throw new IllegalStateException("Action " + action + " is unknown");
+		if (action.equals(Constants.ACTION_FRIEND)) {
+			System.out.print("Handling friend packet..");
+			return new FriendProcessor();
+		}
+
+		if (action.equals(Constants.ACTION_ADD_FRIEND)) {
+			System.out.print("Handling friend request packet..");
+			return new FriendRequestProcessor();
+		}
+
+		throw new IllegalStateException("Action " + action + " is unknown");
 	}
 
 }

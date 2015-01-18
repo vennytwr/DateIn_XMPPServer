@@ -21,17 +21,15 @@ public class SearchProcessor implements PayloadProcessor {
 		try {
 			Connection con = DatabaseConnection.getConnection();
 			PreparedStatement ps = con.prepareStatement(
-					"SELECT * FROM accounts WHERE displayName = ? OR email = ? OR registrationId = ?");
+					"SELECT * FROM accounts WHERE displayName = ? OR registrationId = ?");
 			ps.setString(1, searchString);
-			ps.setString(2, searchString);
-			ps.setString(3, regId);
+			ps.setString(2, regId);
 			ResultSet rs = ps.executeQuery();
 
 			if(rs.first()) {
-				String email = rs.getString("email");
 				String displayName = rs.getString("displayName");
 				String regIdFromDB = rs.getString("registrationId");
-				if((email.equals(searchString) || displayName.equals(searchString)) && !regIdFromDB.equals(regId)) {
+				if(displayName.equals(searchString) && !regIdFromDB.equals(regId)) {
 					System.out.println("OK!");
 					sendMessage(regId, Constants.ACTION_SEARCH_OK, displayName);
 					return;
